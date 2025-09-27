@@ -147,3 +147,57 @@ struct ProgressStats {
     
     static let sample = ProgressStats(completed: 16, pending: 7)
 }
+
+// MARK: - Synrgy View Model
+@MainActor
+class SynrgyViewModel: ObservableObject {
+    // Personal Information
+    @Published var userName: String = ""
+    @Published var userBirthday: Date = Date()
+    @Published var userHometown: String = ""
+    
+    // Experience Information
+//    @Published var schoolingEntries: [SchoolingEntry] = []
+//    @Published var workEntries: [WorkEntry] = []
+    @Published var hobbies: String = ""
+    
+    // Onboarding Data
+    @Published var answers: [String: String] = [:]
+    @Published var roadmapText: String = ""
+    @Published var wantsRoadmapInfo: Bool = false
+    
+    // App State
+    @Published var isLoading: Bool = false
+    
+    init() {
+        print("SynrgyViewModel: Initialized")
+    }
+    
+    func printSelections() {
+        print("SynrgyViewModel: Current selections:")
+        print("  - Name: '\(userName)'")
+        print("  - Birthday: \(userBirthday)")
+        print("  - Hometown: '\(userHometown)'")
+//        print("  - Schooling Entries: \(schoolingEntries.count)")
+//        print("  - Work Entries: \(workEntries.count)")
+        print("  - Hobbies: '\(hobbies)'")
+        print("  - Roadmap Text: '\(roadmapText)'")
+        print("  - Wants Roadmap Info: \(wantsRoadmapInfo)")
+        for (key, value) in answers {
+            print("  - \(key): '\(value)'")
+        }
+    }
+    
+    func generateMilestones() {
+        print("SynrgyViewModel: Generating milestones based on user data")
+        // This would integrate with your milestone generation logic
+        // For now, just log the action
+    }
+    
+    func generatePersonalizedMilestones() {
+        print("SynrgyViewModel: Generating personalized milestones for \(userName)")
+        print("SynrgyViewModel: User from \(userHometown), born \(userBirthday)")
+        // This would create personalized milestones based on personal info
+    }
+}
+
