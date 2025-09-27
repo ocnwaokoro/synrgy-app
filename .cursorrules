@@ -1,0 +1,126 @@
+# SwiftUI + Cursor AI Development Rules
+
+## Project Context
+Building a SwiftUI iOS application using Cursor IDE with enhanced development tools including SweetPad, Xcode Build Server, iOS Deploy, XCBeauty, and SwiftFormat for optimal AI-assisted development workflow.
+
+## Core Development Principles
+- Always add comprehensive debug logs and print statements in code for easier debugging and readability
+- When implementing solutions, explicitly state which rules from this document are being applied
+- Focus on clean, readable code that follows Apple's latest Swift and SwiftUI best practices
+- Use the MVVM architecture pattern consistently throughout the project
+
+## Required Development Tools Integration
+
+### SweetPad Integration
+- Use SweetPad for running iOS simulators and device deployment directly from Cursor
+- Leverage SweetPad's Xcode functionality integration for seamless development
+- Access iOS device management through SweetPad's destination selector
+
+### Build and Deployment Tools
+- Use `ios-deploy` for terminal-based app installation on devices and simulators
+- Leverage `xcbeauty` for clean, readable build output and error logs
+- Apply `swiftformat` automatically for consistent code styling
+- Utilize Xcode Build Server for advanced code navigation, autocomplete, and error highlighting
+
+### Build Configuration
+- Always ensure `build-server.json` is properly configured via SweetPad
+- Use appropriate iOS deployment targets and device compatibility settings
+- Configure proper app permissions in `Info.plist` when accessing device features (camera, location, etc.)
+
+## Swift & SwiftUI Best Practices
+
+### Code Structure & Architecture
+- Follow MVVM pattern: Views for UI, ViewModels for business logic, Models for data
+- Use protocol-oriented programming and Swift's latest features
+- Prefer value types (structs) over reference types (classes)
+- Structure project as: Features/, Core/, UI/, Resources/
+- Follow Apple's Human Interface Guidelines
+
+### Naming Conventions
+- Use camelCase for variables and functions, PascalCase for types
+- Use descriptive verb names for methods (e.g., `fetchUserData`, `validateInput`)
+- Prefix booleans with `is`, `has`, or `should` (e.g., `isLoading`, `hasError`)
+- Follow Apple's naming conventions and style guide
+
+### State Management
+- Use `@Observable` macro for lightweight observable types (iOS 17+)
+- Use `@State` for simple view-local state
+- Use `@StateObject` and `@ObservableObject` with `@Published` for shared state
+- Use `@Binding` for two-way data flow between parent and child views
+- Use `@Environment` for dependency injection
+
+### Concurrency & Async Operations
+- Use `async/await` for all asynchronous operations
+- Implement proper error handling with `Result` type
+- Use `Task` and `.task()` modifiers for view-based async work
+- Handle cancellation properly in long-running tasks
+
+### UI Development
+- SwiftUI-first approach; use UIKit only when absolutely necessary
+- Use SF Symbols for icons and system imagery
+- Support dark mode, dynamic type, and accessibility features
+- Use `SafeArea` and `GeometryReader` for responsive layouts
+- Handle all screen sizes and device orientations
+- Implement proper keyboard handling and dismissal
+
+### Performance Optimization
+- Profile with Instruments when performance issues arise
+- Use `@ViewBuilder` for conditional view construction
+- Implement proper view lifecycle management with `onAppear`/`onDisappear`
+- Use lazy loading for large data sets
+- Optimize image loading and caching
+
+## Code Quality Standards
+
+### Error Handling
+- Always implement comprehensive error handling
+- Use `Result<Success, Failure>` for operations that can fail
+- Provide meaningful error messages and recovery options
+- Log errors appropriately for debugging
+
+### Testing
+- Write unit tests for ViewModels and business logic
+- Use Preview providers for rapid UI iteration
+- Implement UI tests for critical user flows
+- Test accessibility features and VoiceOver support
+
+### Documentation
+- Add clear comments for complex business logic
+- Use Swift documentation comments (///) for public APIs
+- Document non-obvious design decisions
+- Keep README and project documentation updated
+
+## Development Workflow
+
+### Debugging Process
+- Add print statements and debug logs liberally during development
+- Use breakpoints effectively with Xcode debugging tools
+- Leverage SweetPad's error highlighting and build output
+- Test on both simulator and physical devices regularly
+
+### Version Control
+- Commit frequently with descriptive commit messages
+- Use conventional commit format: type(scope): description
+- Include build configuration files in version control
+- Exclude build artifacts and temporary files
+
+### Code Review Standards
+- Ensure code follows these established rules
+- Verify proper error handling and edge case coverage
+- Check accessibility and device compatibility
+- Validate performance implications of changes
+
+## AI Assistant Behavior
+- When suggesting code changes, always explain the reasoning behind the approach
+- Provide multiple solution options when appropriate
+- Consider iOS version compatibility and feature availability
+- Suggest performance optimizations and best practices
+- Reference Apple's official documentation when relevant
+
+## Technology Stack Requirements
+- iOS 15.0+ deployment target (adjust as needed for your project)
+- Latest stable version of Swift and SwiftUI
+- Xcode 15.0+ for development
+- Support for iPhone and iPad (Universal app)
+
+Remember: These rules should guide development decisions while maintaining flexibility for project-specific requirements. Always prioritize code readability, maintainability, and user experience.
