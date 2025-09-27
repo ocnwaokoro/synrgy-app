@@ -1,7 +1,7 @@
 # SwiftUI + Cursor AI Development Rules
 
 ## Project Context
-Building a SwiftUI iOS application using Cursor IDE with enhanced development tools including SweetPad, Xcode Build Server, iOS Deploy, XCBeauty, and SwiftFormat for optimal AI-assisted development workflow.
+Building a SwiftUI iOS application using Cursor IDE with enhanced development tools including SweetPad, Xcode Build Server, iOS Deploy, XCBeautify, and SwiftFormat for optimal AI-assisted development workflow.
 
 ## Core Development Principles
 - Always add comprehensive debug logs and print statements in code for easier debugging and readability
@@ -18,7 +18,7 @@ Building a SwiftUI iOS application using Cursor IDE with enhanced development to
 
 ### Build and Deployment Tools
 - Use `ios-deploy` for terminal-based app installation on devices and simulators
-- Leverage `xcbeauty` for clean, readable build output and error logs
+- Leverage `xcbeautify` for clean, readable build output and error logs
 - Apply `swiftformat` automatically for consistent code styling
 - Utilize Xcode Build Server for advanced code navigation, autocomplete, and error highlighting
 

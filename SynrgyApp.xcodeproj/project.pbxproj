@@ -3,22 +3,38 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F3A700C2E8780CC00C45781 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A700B2E8780CC00C45781 /* HomeView.swift */; };
+		4F3A700F2E87837200C45781 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A700E2E87837200C45781 /* SearchBarView.swift */; };
+		4F3A70152E87900000C45781 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A70142E87900000C45781 /* Models.swift */; };
+		4F3A70172E87AAD600C45781 /* interesting-library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A70162E87AACF00C45781 /* interesting-library.swift */; };
+		4F3A70192E87ADDC00C45781 /* TimelineRoadmapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A70182E87ADDC00C45781 /* TimelineRoadmapView.swift */; };
+		4F3A701B2E87AE3300C45781 /* MilestoneProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A701A2E87AE3300C45781 /* MilestoneProgressView.swift */; };
 		A1234567890123456789012A /* SynrgyAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1234567890123456789012B /* SynrgyAppApp.swift */; };
 		A1234567890123456789012C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1234567890123456789012D /* ContentView.swift */; };
 		A1234567890123456789012E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1234567890123456789012F /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A1234567890123456789012G /* SynrgyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SynrgyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F3A700B2E8780CC00C45781 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		4F3A700E2E87837200C45781 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		4F3A70142E87900000C45781 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		4F3A70162E87AACF00C45781 /* interesting-library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "interesting-library.swift"; sourceTree = "<group>"; };
+		4F3A70182E87ADDC00C45781 /* TimelineRoadmapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRoadmapView.swift; sourceTree = "<group>"; };
+		4F3A701A2E87AE3300C45781 /* MilestoneProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneProgressView.swift; sourceTree = "<group>"; };
 		A1234567890123456789012B /* SynrgyAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynrgyAppApp.swift; sourceTree = "<group>"; };
 		A1234567890123456789012D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A1234567890123456789012F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A1234567890123456789012G /* SynrgyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SynrgyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1234567890123456789012H /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		4F3A701E2E87BC8A00C45781 /* Part 1 */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Part 1"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A1234567890123456789012I /* Frameworks */ = {
@@ -39,14 +55,6 @@
 			);
 			sourceTree = "<group>";
 		};
-		A1234567890123456789012L /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A1234567890123456789012G /* SynrgyApp.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		A1234567890123456789012K /* SynrgyApp */ = {
 			isa = PBXGroup;
 			children = (
@@ -54,8 +62,23 @@
 				A1234567890123456789012D /* ContentView.swift */,
 				A1234567890123456789012F /* Assets.xcassets */,
 				A1234567890123456789012H /* Info.plist */,
+				4F3A700B2E8780CC00C45781 /* HomeView.swift */,
+				4F3A701E2E87BC8A00C45781 /* Part 1 */,
+				4F3A70162E87AACF00C45781 /* interesting-library.swift */,
+				4F3A700E2E87837200C45781 /* SearchBarView.swift */,
+				4F3A70182E87ADDC00C45781 /* TimelineRoadmapView.swift */,
+				4F3A701A2E87AE3300C45781 /* MilestoneProgressView.swift */,
+				4F3A70142E87900000C45781 /* Models.swift */,
 			);
 			path = SynrgyApp;
+			sourceTree = "<group>";
+		};
+		A1234567890123456789012L /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1234567890123456789012G /* SynrgyApp.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -72,6 +95,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4F3A701E2E87BC8A00C45781 /* Part 1 */,
 			);
 			name = SynrgyApp;
 			productName = SynrgyApp;
@@ -127,7 +153,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F3A700F2E87837200C45781 /* SearchBarView.swift in Sources */,
+				4F3A701B2E87AE3300C45781 /* MilestoneProgressView.swift in Sources */,
+				4F3A70172E87AAD600C45781 /* interesting-library.swift in Sources */,
+				4F3A70192E87ADDC00C45781 /* TimelineRoadmapView.swift in Sources */,
+				4F3A700C2E8780CC00C45781 /* HomeView.swift in Sources */,
 				A1234567890123456789012C /* ContentView.swift in Sources */,
+				4F3A70152E87900000C45781 /* Models.swift in Sources */,
 				A1234567890123456789012A /* SynrgyAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,20 +347,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A1234567890123456789012R /* Build configuration list for PBXProject "SynrgyApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A1234567890123456789012S /* Debug */,
-				A1234567890123456789012T /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		A1234567890123456789012N /* Build configuration list for PBXNativeTarget "SynrgyApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A1234567890123456789012U /* Debug */,
 				A1234567890123456789012V /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1234567890123456789012R /* Build configuration list for PBXProject "SynrgyApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1234567890123456789012S /* Debug */,
+				A1234567890123456789012T /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
