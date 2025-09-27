@@ -92,10 +92,54 @@ Building a SwiftUI iOS application using Cursor IDE with enhanced development to
 
 ## Development Workflow
 
+### xcodebuild Integration & Usage
+**CRITICAL**: Always use `xcodebuild` for terminal-based builds and verification. This is essential for:
+- **File Recognition**: Ensuring new Swift files are properly added to the Xcode project
+- **Build Verification**: Confirming code changes compile successfully before deployment
+- **CI/CD Integration**: Automated builds and testing in development workflows
+- **Error Detection**: Catching compilation errors that IDE might miss
+
+#### When to Use xcodebuild:
+- **After adding new Swift files** to verify they're included in the build
+- **Before committing changes** to ensure the project builds successfully
+- **When files aren't recognized** by Xcode's file system synchronization
+- **For automated testing** and continuous integration
+- **When debugging build issues** that aren't visible in the IDE
+
+#### Essential xcodebuild Commands:
+```bash
+# Basic build with specific simulator
+xcodebuild -project SynrgyApp.xcodeproj -scheme SynrgyApp -destination 'platform=iOS Simulator,id=DEVICE_ID' build
+
+# Build with clean output (using xcbeautify)
+xcodebuild -project SynrgyApp.xcodeproj -scheme SynrgyApp -destination 'platform=iOS Simulator,id=DEVICE_ID' build | xcbeautify
+
+# Build and show only errors
+xcodebuild -project SynrgyApp.xcodeproj -scheme SynrgyApp -destination 'platform=iOS Simulator,id=DEVICE_ID' build 2>&1 | grep -E "(error:|warning:|BUILD FAILED|BUILD SUCCEEDED)"
+
+# Clean build (when having issues)
+xcodebuild clean -project SynrgyApp.xcodeproj -scheme SynrgyApp
+```
+
+#### Why xcodebuild is Necessary:
+- **File System Sync Issues**: Xcode's file system synchronization doesn't always detect new files immediately
+- **Build Verification**: Terminal builds catch errors that IDE previews might miss
+- **Project Integrity**: Ensures all files are properly included in the target's build phases
+- **Automation**: Essential for CI/CD pipelines and automated testing
+- **Debugging**: Provides detailed build logs and error information
+
+#### Best Practices for xcodebuild:
+- **Always run after adding files**: Verify new Swift files are recognized and compile
+- **Use specific device IDs**: Avoid generic simulator names that might not exist
+- **Pipe to xcbeautify**: For cleaner, more readable build output
+- **Check exit codes**: Exit code 0 = success, non-zero = failure
+- **Use tail for long outputs**: `| tail -10` to see only the last 10 lines
+
 ### Debugging Process
 - Add print statements and debug logs liberally during development
 - Use breakpoints effectively with Xcode debugging tools
 - Leverage SweetPad's error highlighting and build output
+- **ALWAYS run xcodebuild after making changes** to verify compilation
 - Test on both simulator and physical devices regularly
 
 ### Version Control
@@ -103,12 +147,14 @@ Building a SwiftUI iOS application using Cursor IDE with enhanced development to
 - Use conventional commit format: type(scope): description
 - Include build configuration files in version control
 - Exclude build artifacts and temporary files
+- **Verify builds with xcodebuild before committing**
 
 ### Code Review Standards
 - Ensure code follows these established rules
 - Verify proper error handling and edge case coverage
 - Check accessibility and device compatibility
 - Validate performance implications of changes
+- **Always verify builds with xcodebuild before merging**
 
 ## AI Assistant Behavior
 - When suggesting code changes, always explain the reasoning behind the approach
