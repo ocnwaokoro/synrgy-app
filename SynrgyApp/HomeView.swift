@@ -17,22 +17,27 @@ struct HomeView: View {
     @State private var searchText = ""
     @State private var showSheet = true
     @State private var isSearchFocused = false
-    @State private var selectedDetent: PresentationDetent = detent.small
+    @State private var selectedDetent: PresentationDetent = detent.medium
+    @State private var showW = true
 
     var body: some View {
-        ZStack {
-            // Map placeholder
-//            LinearGradient(
-//                colors: [Color.green.opacity(0.3), Color.blue.opacity(0.2)],
-//                startPoint: .topLeading,
-//                endPoint: .bottomTrailing
-//            )
-//            .ignoresSafeArea()
-            
-            Color.clear.ignoresSafeArea()
-            
-            MultiRoadmapNexusView(roadmaps: nexusRoadmaps)
-                .background(.white)
+        GeometryReader { geometry in
+            ZStack {
+                // Map placeholder
+                Color.clear.ignoresSafeArea()
+                
+                // MultiRoadmapNexusView - centered when medium detent
+                MultiRoadmapNexusView(roadmaps: nexusRoadmaps)
+                    .background(.white)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .position(
+                        x: geometry.size.width / 2,
+                        y: selectedDetent == detent.medium ?
+                            (geometry.size.height * 0.225) : // Center in top 45% when medium
+                            geometry.size.height / 2 // Center normally for other detents
+                    )
+                    .animation(.easeInOut(duration: 0.4), value: selectedDetent)
+            }
         }
         .sheet(isPresented: $showSheet) {
             VStack {
@@ -41,12 +46,20 @@ struct HomeView: View {
                 )
                 .padding(.top)
                 if (selectedDetent != detent.small) {
-                    List {
-                        LibraryView()
-                        RecentActionsView()
+                    if showW {
+                        ScrollView(.vertical) {
+                            RecentEngagementView(roadmaps: MyRoadmaps)
+                            PopularCareersView(careers: popularCareers)
+                        }
+                        
+                    } else {
+                        List {
+                            LibraryView()
+                            RecentActionsView()
+                        }
+                        .listStyle(.insetGrouped)
+                        .scrollContentBackground(.hidden)
                     }
-                    .listStyle(.insetGrouped)
-                    .scrollContentBackground(.hidden)
                 }
                 Spacer(minLength: 0)
             }
@@ -55,6 +68,7 @@ struct HomeView: View {
             .presentationDragIndicator(.visible)
             .interactiveDismissDisabled(true)
             .presentationCompactAdaptation(.none)
+            .presentationBackgroundInteraction(.enabled)
         }
         .onAppear {
             print("HomeView: Maps interface loaded")

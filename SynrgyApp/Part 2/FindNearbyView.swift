@@ -22,7 +22,7 @@ struct FindNearbyView: View {
                 Spacer()
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+            .padding(.vertical, 4)
             
             // Divider under the title
             Divider()
@@ -30,7 +30,7 @@ struct FindNearbyView: View {
             
             // Horizontally scrollable grid (not 2 columns, but 2 rows)
             ScrollView(.horizontal, showsIndicators: false) {
-                VStack(spacing: 0) {
+                VStack(spacing: 8) {
                     HStack(spacing: 0) {
                         ForEach(Array(categories.prefix(3))) { category in
                             NearbyCategoryButton(category: category)
@@ -53,7 +53,7 @@ struct NearbyCategoryButton: View {
     let category: NearbyCategory
     
     var body: some View {
-        VStack(spacing: 8) {
+        HStack(spacing: 8) {
             Circle()
                 .fill(category.color)
                 .frame(width: 40, height: 40)
@@ -62,14 +62,14 @@ struct NearbyCategoryButton: View {
                         .foregroundColor(.white)
                         .font(.system(size: 18))
                 )
-            
             Text(category.title)
                 .font(.caption)
                 .fontWeight(.medium)
                 .multilineTextAlignment(.center)
-                .lineLimit(2)
+                .lineLimit(1)
+            Spacer()
         }
-        .frame(width: 80) // Fixed width for consistent layout
+        .frame(width: 140)
     }
 }
 
