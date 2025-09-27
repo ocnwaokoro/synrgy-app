@@ -17,13 +17,13 @@ struct MessagesView: View {
     var body: some View {
         VStack(spacing: 0) {
             // Navigation Header
-            NavigationHeader(
-                onBack: { dismiss() },
-                onDone: { 
-                    print("Done button tapped")
-                    dismiss()
-                }
-            )
+//            NavigationHeader(
+//                onBack: { dismiss() },
+//                onDone: {
+//                    print("Done button tapped")
+//                    dismiss()
+//                }
+//            )
             
             // Messages List
             ScrollViewReader { proxy in
@@ -33,14 +33,27 @@ struct MessagesView: View {
                             MessageBubble(message: message)
                                 .id(message.id)
                         }
+                        
+                        // Typing Indicator
+                        if isTyping {
+                            TypingIndicator()
+                                .id("typing")
+                        }
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
                 }
-                .onChange(of: messages.count) { _ in
+                .onChange(of: messages.count) { _, _ in
                     if let lastMessage = messages.last {
                         withAnimation(.easeInOut(duration: 0.3)) {
                             proxy.scrollTo(lastMessage.id, anchor: .bottom)
+                        }
+                    }
+                }
+                .onChange(of: isTyping) { _, typing in
+                    if typing {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            proxy.scrollTo("typing", anchor: .bottom)
                         }
                     }
                 }
@@ -72,8 +85,13 @@ struct MessagesView: View {
         messages.append(newMessage)
         messageText = ""
         
+        // Show typing indicator
+        isTyping = true
+        
         // Simulate AI response after a delay
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            isTyping = false
+            
             let aiResponse = Message(
                 id: UUID(),
                 text: generateAIResponse(to: newMessage.text),
@@ -116,6 +134,40 @@ struct MessagesView: View {
                 timestamp: Date().addingTimeInterval(-120)
             )
         ]
+    }
+}
+
+// MARK: - Typing Indicator
+struct TypingIndicator: View {
+    @State private var animationOffset: CGFloat = 0
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 4) {
+                    ForEach(0..<3) { index in
+                        Circle()
+                            .fill(Color.gray)
+                            .frame(width: 8, height: 8)
+                            .offset(y: animationOffset)
+                            .animation(
+                                .easeInOut(duration: 0.6)
+                                .repeatForever()
+                                .delay(Double(index) * 0.2),
+                                value: animationOffset
+                            )
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(Color.white)
+                .cornerRadius(18, corners: [.topLeft, .topRight, .bottomRight])
+            }
+            Spacer()
+        }
+        .onAppear {
+            animationOffset = -4
+        }
     }
 }
 
@@ -191,7 +243,7 @@ struct MessageInputView: View {
         HStack(spacing: 12) {
             // Text Input
             HStack {
-                TextField("Type a message...", text: $messageText, axis: .vertical)
+                TextField("What are your thoughts?...", text: $messageText, axis: .vertical)
                     .font(.system(size: 16))
                     .padding(.horizontal, 16)
                     .padding(.vertical, 12)
@@ -226,7 +278,7 @@ struct MessageInputView: View {
 }
 
 // MARK: - Navigation Header
-struct NavigationHeader: View {
+private struct NavigationHeader: View {
     let onBack: () -> Void
     let onDone: () -> Void
     
