@@ -63,7 +63,7 @@ struct LibraryItem: Identifiable, Hashable {
     
     // 4 example items - all blue
     static let lawyer = LibraryItem(
-        title: "Lawyer",
+        title: "Become a Lawyer",
         color: .blue,
         description: "",
         category: .career

@@ -172,7 +172,7 @@ struct MultiRoadmapProgressView: View {
 }
 
 // Sample data
-let sampleRoadmaps = [
+private let sampleRoadmaps = [
     Roadmap(
         title: "Content Creator",
         milestones: [
