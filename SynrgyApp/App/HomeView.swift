@@ -46,7 +46,7 @@ struct HomeView: View {
                 )
                 .padding(.top)
                 if (selectedDetent != detent.small) {
-                    if showW {
+                    if isSearchFocused {
                         ScrollView(.vertical) {
                             RecentEngagementView(roadmaps: MyRoadmaps)
                             PopularCareersView(careers: popularCareers)
