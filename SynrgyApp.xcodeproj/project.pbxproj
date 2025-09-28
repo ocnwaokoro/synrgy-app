@@ -7,26 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4F3A700C2E8780CC00C45781 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A700B2E8780CC00C45781 /* HomeView.swift */; };
-		4F3A700F2E87837200C45781 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A700E2E87837200C45781 /* SearchBarView.swift */; };
 		4F3A70152E87900000C45781 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A70142E87900000C45781 /* Models.swift */; };
-		4F3A70172E87AAD600C45781 /* interesting-library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A70162E87AACF00C45781 /* interesting-library.swift */; };
-		4F3A701B2E87AE3300C45781 /* MilestoneProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A701A2E87AE3300C45781 /* MilestoneProgressView.swift */; };
-		4F3A70332E87E77000C45781 /* ExampleUsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A70322E87E77000C45781 /* ExampleUsageView.swift */; };
-		A1234567890123456789012A /* SynrgyAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1234567890123456789012B /* SynrgyAppApp.swift */; };
-		A1234567890123456789012C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1234567890123456789012D /* ContentView.swift */; };
 		A1234567890123456789012E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1234567890123456789012F /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4F3A700B2E8780CC00C45781 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		4F3A700E2E87837200C45781 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		4F3A70142E87900000C45781 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		4F3A70162E87AACF00C45781 /* interesting-library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "interesting-library.swift"; sourceTree = "<group>"; };
-		4F3A701A2E87AE3300C45781 /* MilestoneProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneProgressView.swift; sourceTree = "<group>"; };
-		4F3A70322E87E77000C45781 /* ExampleUsageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleUsageView.swift; sourceTree = "<group>"; };
-		A1234567890123456789012B /* SynrgyAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynrgyAppApp.swift; sourceTree = "<group>"; };
-		A1234567890123456789012D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A1234567890123456789012F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1234567890123456789012G /* SynrgyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SynrgyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1234567890123456789012H /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -39,6 +25,12 @@
 				BasicInfoBirthdayView.swift,
 				BasicInfoHometownView.swift,
 				BasicInfoNameView.swift,
+			);
+			target = A1234567890123456789012M /* SynrgyApp */;
+		};
+		4F424F852E8912DB00076559 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
 				BasicInfoView.swift,
 			);
 			target = A1234567890123456789012M /* SynrgyApp */;
@@ -51,6 +43,10 @@
 		4F3A702D2E87D6AF00C45781 /* Part 3 */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Part 3"; sourceTree = "<group>"; };
 		4F3A70302E87E76E00C45781 /* Part 4 */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4F3A70E72E87F04F00C45781 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Part 4"; sourceTree = "<group>"; };
 		4F3A70EE2E87F65800C45781 /* Part 5 */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Part 5"; sourceTree = "<group>"; };
+		4F424F742E886D2300076559 /* Part 6 */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Part 6"; sourceTree = "<group>"; };
+		4F424F842E8912CF00076559 /* Scrap */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4F424F852E8912DB00076559 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Scrap; sourceTree = "<group>"; };
+		4F424F872E89130400076559 /* Components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Components; sourceTree = "<group>"; };
+		4F424F882E89132400076559 /* App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = App; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,21 +71,18 @@
 		A1234567890123456789012K /* SynrgyApp */ = {
 			isa = PBXGroup;
 			children = (
-				A1234567890123456789012B /* SynrgyAppApp.swift */,
-				A1234567890123456789012D /* ContentView.swift */,
 				A1234567890123456789012F /* Assets.xcassets */,
 				A1234567890123456789012H /* Info.plist */,
-				4F3A700B2E8780CC00C45781 /* HomeView.swift */,
-				4F3A70162E87AACF00C45781 /* interesting-library.swift */,
-				4F3A700E2E87837200C45781 /* SearchBarView.swift */,
+				4F424F882E89132400076559 /* App */,
+				4F424F872E89130400076559 /* Components */,
+				4F424F842E8912CF00076559 /* Scrap */,
 				4F3A701E2E87BC8A00C45781 /* Part 1 */,
 				4F3A70282E87C42F00C45781 /* Part 2 */,
 				4F3A702D2E87D6AF00C45781 /* Part 3 */,
 				4F3A70302E87E76E00C45781 /* Part 4 */,
 				4F3A70EE2E87F65800C45781 /* Part 5 */,
-				4F3A701A2E87AE3300C45781 /* MilestoneProgressView.swift */,
+				4F424F742E886D2300076559 /* Part 6 */,
 				4F3A70142E87900000C45781 /* Models.swift */,
-				4F3A70322E87E77000C45781 /* ExampleUsageView.swift */,
 			);
 			path = SynrgyApp;
 			sourceTree = "<group>";
@@ -123,6 +116,10 @@
 				4F3A702D2E87D6AF00C45781 /* Part 3 */,
 				4F3A70302E87E76E00C45781 /* Part 4 */,
 				4F3A70EE2E87F65800C45781 /* Part 5 */,
+				4F424F742E886D2300076559 /* Part 6 */,
+				4F424F842E8912CF00076559 /* Scrap */,
+				4F424F872E89130400076559 /* Components */,
+				4F424F882E89132400076559 /* App */,
 			);
 			name = SynrgyApp;
 			productName = SynrgyApp;
@@ -178,14 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F3A700F2E87837200C45781 /* SearchBarView.swift in Sources */,
-				4F3A701B2E87AE3300C45781 /* MilestoneProgressView.swift in Sources */,
-				4F3A70172E87AAD600C45781 /* interesting-library.swift in Sources */,
-				4F3A700C2E8780CC00C45781 /* HomeView.swift in Sources */,
-				A1234567890123456789012C /* ContentView.swift in Sources */,
 				4F3A70152E87900000C45781 /* Models.swift in Sources */,
-				A1234567890123456789012A /* SynrgyAppApp.swift in Sources */,
-				4F3A70332E87E77000C45781 /* ExampleUsageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
