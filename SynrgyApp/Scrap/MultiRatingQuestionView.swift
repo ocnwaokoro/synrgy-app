@@ -7,12 +7,6 @@
 //
 //import SwiftUI
 //
-//struct QuestionRating {
-//    let question: String
-//    let lowLabel: String
-//    let highLabel: String
-//    var rating: Int = 0
-//}
 //
 //struct MultiRatingQuestionView: View {
 //    @State private var questions = [
