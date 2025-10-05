@@ -8,26 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		4F3A70152E87900000C45781 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A70142E87900000C45781 /* Models.swift */; };
+		4F50C7FA2E8927FC0060227F /* UnifiedRoadmapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F50C7F82E8927F50060227F /* UnifiedRoadmapData.swift */; };
 		A1234567890123456789012E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1234567890123456789012F /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4F3A70142E87900000C45781 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		4F50C7F82E8927F50060227F /* UnifiedRoadmapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedRoadmapData.swift; sourceTree = "<group>"; };
 		A1234567890123456789012F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1234567890123456789012G /* SynrgyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SynrgyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1234567890123456789012H /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		4F3A70E72E87F04F00C45781 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				BasicInfoBirthdayView.swift,
-				BasicInfoHometownView.swift,
-				BasicInfoNameView.swift,
-			);
-			target = A1234567890123456789012M /* SynrgyApp */;
-		};
 		4F424F852E8912DB00076559 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -41,12 +34,13 @@
 		4F3A701E2E87BC8A00C45781 /* Part 1 */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Part 1"; sourceTree = "<group>"; };
 		4F3A70282E87C42F00C45781 /* Part 2 */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Part 2"; sourceTree = "<group>"; };
 		4F3A702D2E87D6AF00C45781 /* Part 3 */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Part 3"; sourceTree = "<group>"; };
-		4F3A70302E87E76E00C45781 /* Part 4 */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4F3A70E72E87F04F00C45781 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Part 4"; sourceTree = "<group>"; };
+		4F3A70302E87E76E00C45781 /* Part 4 */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Part 4"; sourceTree = "<group>"; };
 		4F3A70EE2E87F65800C45781 /* Part 5 */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Part 5"; sourceTree = "<group>"; };
 		4F424F742E886D2300076559 /* Part 6 */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Part 6"; sourceTree = "<group>"; };
 		4F424F842E8912CF00076559 /* Scrap */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4F424F852E8912DB00076559 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Scrap; sourceTree = "<group>"; };
 		4F424F872E89130400076559 /* Components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Components; sourceTree = "<group>"; };
 		4F424F882E89132400076559 /* App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = App; sourceTree = "<group>"; };
+		4F50C7FB2E893E0D0060227F /* Demo */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Demo; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +65,7 @@
 		A1234567890123456789012K /* SynrgyApp */ = {
 			isa = PBXGroup;
 			children = (
+				4F50C7FB2E893E0D0060227F /* Demo */,
 				A1234567890123456789012F /* Assets.xcassets */,
 				A1234567890123456789012H /* Info.plist */,
 				4F424F882E89132400076559 /* App */,
@@ -83,6 +78,7 @@
 				4F3A70EE2E87F65800C45781 /* Part 5 */,
 				4F424F742E886D2300076559 /* Part 6 */,
 				4F3A70142E87900000C45781 /* Models.swift */,
+				4F50C7F82E8927F50060227F /* UnifiedRoadmapData.swift */,
 			);
 			path = SynrgyApp;
 			sourceTree = "<group>";
@@ -120,6 +116,7 @@
 				4F424F842E8912CF00076559 /* Scrap */,
 				4F424F872E89130400076559 /* Components */,
 				4F424F882E89132400076559 /* App */,
+				4F50C7FB2E893E0D0060227F /* Demo */,
 			);
 			name = SynrgyApp;
 			productName = SynrgyApp;
@@ -175,6 +172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F50C7FA2E8927FC0060227F /* UnifiedRoadmapData.swift in Sources */,
 				4F3A70152E87900000C45781 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,6 +307,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SynrgyApp/Preview Content\"";
+				DEVELOPMENT_TEAM = 5JW7GDXZ88;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SynrgyApp/Info.plist;
@@ -338,6 +337,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SynrgyApp/Preview Content\"";
+				DEVELOPMENT_TEAM = 5JW7GDXZ88;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SynrgyApp/Info.plist;

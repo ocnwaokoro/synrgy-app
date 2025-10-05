@@ -17,8 +17,10 @@ struct HomeView: View {
     @State private var searchText = ""
     @State private var showSheet = true
     @State private var isSearchFocused = false
-    @State private var selectedDetent: PresentationDetent = detent.medium
+    @State private var selectedDetent: PresentationDetent = detent.small
     @State private var showW = true
+    @ObservedObject var roadmapData: UnifiedRoadmapData
+    let onRoadmapSelected: (Roadmap) -> Void
 
     var body: some View {
         GeometryReader { geometry in
@@ -27,7 +29,7 @@ struct HomeView: View {
                 Color.clear.ignoresSafeArea()
                 
                 // MultiRoadmapNexusView - centered when medium detent
-                MultiRoadmapNexusView(roadmaps: nexusRoadmaps)
+                MultiRoadmapNexusView(roadmaps: roadmapData.sharedRoadmaps)
                     .background(.white)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .position(
@@ -48,13 +50,39 @@ struct HomeView: View {
                 if (selectedDetent != detent.small) {
                     if isSearchFocused {
                         ScrollView(.vertical) {
-                            RecentEngagementView(roadmaps: MyRoadmaps)
-                            PopularCareersView(careers: popularCareers)
+                            RecentEngagementView(
+                                roadmaps: roadmapData.sharedRoadmaps,
+                                onRoadmapSelected: { roadmap in
+                                    print("HomeView: Roadmap selected, dismissing sheet")
+                                    showSheet = false  // Dismiss sheet first
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                        onRoadmapSelected(roadmap)  // Then navigate
+                                    }
+                                }
+                            )
+                            PopularCareersView(
+                                onRoadmapSelected: { roadmap in
+                                    print("HomeView: Roadmap selected, dismissing sheet")
+                                    showSheet = false  // Dismiss sheet first
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                        onRoadmapSelected(roadmap)  // Then navigate
+                                    }
+                                }
+                            )
                         }
                         
                     } else {
                         List {
-                            LibraryView()
+                            LibraryView(
+                                roadmaps: $roadmapData.sharedRoadmaps,
+                                onRoadmapSelected: { roadmap in
+                                    print("HomeView: Roadmap selected, dismissing sheet")
+                                    showSheet = false  // Dismiss sheet first
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                        onRoadmapSelected(roadmap)  // Then navigate
+                                    }
+                                }
+                            )
                             RecentActionsView()
                         }
                         .listStyle(.insetGrouped)
@@ -91,5 +119,10 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    HomeView(
+        roadmapData: UnifiedRoadmapData.shared,
+        onRoadmapSelected: { roadmap in
+            print("Preview: Selected roadmap: \(roadmap.title)")
+        }
+    )
 }
