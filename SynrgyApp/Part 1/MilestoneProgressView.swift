@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct Roadmap: Identifiable, Codable {
+struct Roadmap: Identifiable, Codable, Hashable {
     let id: UUID
     let title: String
-    let milestones: [Milestone]
+    var milestones: [Milestone]
     
     var currentStepIndex: Int {
         // Find the first incomplete milestone, or return last index if all complete
@@ -89,6 +89,7 @@ struct MilestoneProgressView: View {
         }
     }
 }
+
 struct LineShape: Shape {
     let from: CGPoint
     let to: CGPoint
@@ -108,14 +109,58 @@ struct LineShape: Shape {
 let sampleRoadmap = Roadmap(
     title: "Content Creator Journey",
     milestones: [
-        Milestone(id: 1, title: "Choose Your Niche", description: "Identify your unique voice and establish expertise", isCompleted: true),
-        Milestone(id: 2, title: "Setup Platforms", description: "Create branded profiles on 1-2 channels", isCompleted: true),
-        Milestone(id: 3, title: "Content Calendar", description: "Produce 2-3 posts per week with batches", isCompleted: false),
-        Milestone(id: 4, title: "Engage Audience", description: "Use SEO, cross-promote, and reply daily", isCompleted: false),
-        Milestone(id: 5, title: "Monetize Growth", description: "Test revenue streams and reinvest for growth", isCompleted: false)
+        Milestone(
+            id: 1,
+            title: "Choose Your Niche",
+            description: "Identify your unique voice and establish expertise",
+            isCompleted: true,
+            resources: [
+                MilestoneResource(title: "Niche Research Guide", link: "https://example.com/niche-guide"),
+                MilestoneResource(title: "Voice Development Tips", link: "https://example.com/voice-tips")
+            ]
+        ),
+        Milestone(
+            id: 2,
+            title: "Setup Platforms",
+            description: "Create branded profiles on 1-2 channels",
+            isCompleted: true,
+            resources: [
+                MilestoneResource(title: "Platform Setup Checklist", link: "https://example.com/platform-checklist"),
+                MilestoneResource(title: "Branding Guidelines", link: "https://example.com/branding-guide")
+            ]
+        ),
+        Milestone(
+            id: 3,
+            title: "Content Calendar",
+            description: "Produce 2-3 posts per week with batches",
+            isCompleted: false,
+            resources: [
+                MilestoneResource(title: "Content Planning Template", link: "https://example.com/content-template"),
+                MilestoneResource(title: "Batch Creation Guide", link: "https://example.com/batch-guide")
+            ]
+        ),
+        Milestone(
+            id: 4,
+            title: "Engage Audience",
+            description: "Use SEO, cross-promote, and reply daily",
+            isCompleted: false,
+            resources: [
+                MilestoneResource(title: "SEO Best Practices", link: "https://example.com/seo-guide"),
+                MilestoneResource(title: "Community Building", link: "https://example.com/community-guide")
+            ]
+        ),
+        Milestone(
+            id: 5,
+            title: "Monetize Growth",
+            description: "Test revenue streams and reinvest for growth",
+            isCompleted: false,
+            resources: [
+                MilestoneResource(title: "Monetization Strategies", link: "https://example.com/monetization"),
+                MilestoneResource(title: "Revenue Tracking", link: "https://example.com/revenue-tracking")
+            ]
+        )
     ]
 )
-
 
 struct MultiRoadmapProgressView: View {
     let roadmaps: [Roadmap]
@@ -176,38 +221,154 @@ private let sampleRoadmaps = [
     Roadmap(
         title: "Content Creator",
         milestones: [
-            Milestone(id: 1, title: "Choose Niche", description: "Find your focus", isCompleted: true),
-            Milestone(id: 2, title: "Setup Platforms", description: "Create profiles", isCompleted: true),
-            Milestone(id: 3, title: "Content Calendar", description: "Plan posts", isCompleted: false),
-            Milestone(id: 4, title: "Engage Audience", description: "Build community", isCompleted: false),
-            Milestone(id: 5, title: "Monetize", description: "Generate revenue", isCompleted: false)
+            Milestone(
+                id: 1,
+                title: "Choose Niche",
+                description: "Find your focus",
+                isCompleted: true,
+                resources: [
+                    MilestoneResource(title: "Niche Research Guide", link: "https://example.com/niche-guide")
+                ]
+            ),
+            Milestone(
+                id: 2,
+                title: "Setup Platforms",
+                description: "Create profiles",
+                isCompleted: true,
+                resources: [
+                    MilestoneResource(title: "Platform Setup Checklist", link: "https://example.com/platform-checklist")
+                ]
+            ),
+            Milestone(
+                id: 3,
+                title: "Content Calendar",
+                description: "Plan posts",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Content Planning Template", link: "https://example.com/content-template")
+                ]
+            ),
+            Milestone(
+                id: 4,
+                title: "Engage Audience",
+                description: "Build community",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Community Building Guide", link: "https://example.com/community-guide")
+                ]
+            ),
+            Milestone(
+                id: 5,
+                title: "Monetize",
+                description: "Generate revenue",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Monetization Strategies", link: "https://example.com/monetization")
+                ]
+            )
         ]
     ),
     Roadmap(
         title: "Software Engineer",
         milestones: [
-            Milestone(id: 1, title: "Learn Basics", description: "Programming fundamentals", isCompleted: true),
-            Milestone(id: 2, title: "Build Projects", description: "Portfolio development", isCompleted: false),
-            Milestone(id: 3, title: "Apply Jobs", description: "Job search", isCompleted: false),
-            Milestone(id: 4, title: "First Role", description: "Entry position", isCompleted: false),
-            Milestone(id: 5, title: "Senior Role", description: "Career growth", isCompleted: false)
+            Milestone(
+                id: 1,
+                title: "Learn Basics",
+                description: "Programming fundamentals",
+                isCompleted: true,
+                resources: [
+                    MilestoneResource(title: "Programming Fundamentals Course", link: "https://example.com/programming-basics")
+                ]
+            ),
+            Milestone(
+                id: 2,
+                title: "Build Projects",
+                description: "Portfolio development",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Project Ideas List", link: "https://example.com/project-ideas")
+                ]
+            ),
+            Milestone(
+                id: 3,
+                title: "Apply Jobs",
+                description: "Job search",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Job Search Strategy", link: "https://example.com/job-search")
+                ]
+            ),
+            Milestone(
+                id: 4,
+                title: "First Role",
+                description: "Entry position",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Entry-Level Job Guide", link: "https://example.com/entry-jobs")
+                ]
+            ),
+            Milestone(
+                id: 5,
+                title: "Senior Role",
+                description: "Career growth",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Senior Skills Development", link: "https://example.com/senior-skills")
+                ]
+            )
         ]
     ),
     Roadmap(
         title: "Entrepreneur",
         milestones: [
-            Milestone(id: 1, title: "Idea Validation", description: "Test concept", isCompleted: true),
-            Milestone(id: 2, title: "MVP", description: "Build prototype", isCompleted: true),
-            Milestone(id: 3, title: "Launch", description: "Go to market", isCompleted: true),
-            Milestone(id: 4, title: "Scale", description: "Grow business", isCompleted: false),
-            Milestone(id: 5, title: "Exit", description: "Acquisition/IPO", isCompleted: false)
+            Milestone(
+                id: 1,
+                title: "Idea Validation",
+                description: "Test concept",
+                isCompleted: true,
+                resources: [
+                    MilestoneResource(title: "Validation Framework", link: "https://example.com/validation-framework")
+                ]
+            ),
+            Milestone(
+                id: 2,
+                title: "MVP",
+                description: "Build prototype",
+                isCompleted: true,
+                resources: [
+                    MilestoneResource(title: "MVP Development Guide", link: "https://example.com/mvp-guide")
+                ]
+            ),
+            Milestone(
+                id: 3,
+                title: "Launch",
+                description: "Go to market",
+                isCompleted: true,
+                resources: [
+                    MilestoneResource(title: "Launch Strategy", link: "https://example.com/launch-strategy")
+                ]
+            ),
+            Milestone(
+                id: 4,
+                title: "Scale",
+                description: "Grow business",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Scaling Strategies", link: "https://example.com/scaling")
+                ]
+            ),
+            Milestone(
+                id: 5,
+                title: "Exit",
+                description: "Acquisition/IPO",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Exit Planning Guide", link: "https://example.com/exit-planning")
+                ]
+            )
         ]
     )
 ]
-
-//#Preview {
-//    MultiRoadmapProgressView(roadmaps: sampleRoadmaps)
-//}
 
 struct CenteredMilestoneProgressView: View {
     let roadmap: Roadmap
@@ -309,48 +470,156 @@ struct MultiRoadmapNexusView: View {
     }
 }
 
-//struct LineShape: Shape {
-//    let from: CGPoint
-//    let to: CGPoint
-//    
-//    func path(in rect: CGRect) -> Path {
-//        var path = Path()
-//        path.move(to: from)
-//        path.addLine(to: to)
-//        return path
-//    }
-//}
-
 // Sample roadmaps with different progress states
 let nexusRoadmaps = [
     Roadmap(
         title: "Content Creator",
         milestones: [
-            Milestone(id: 1, title: "Choose Niche", description: "Find focus", isCompleted: true),
-            Milestone(id: 2, title: "Setup Platforms", description: "Create profiles", isCompleted: true),
-            Milestone(id: 3, title: "Content Calendar", description: "Plan posts", isCompleted: false),
-            Milestone(id: 4, title: "Engage Audience", description: "Build community", isCompleted: false),
-            Milestone(id: 5, title: "Monetize", description: "Generate revenue", isCompleted: false)
+            Milestone(
+                id: 1,
+                title: "Choose Niche",
+                description: "Find focus",
+                isCompleted: true,
+                resources: [
+                    MilestoneResource(title: "Niche Research Guide", link: "https://example.com/niche-guide")
+                ]
+            ),
+            Milestone(
+                id: 2,
+                title: "Setup Platforms",
+                description: "Create profiles",
+                isCompleted: true,
+                resources: [
+                    MilestoneResource(title: "Platform Setup Checklist", link: "https://example.com/platform-checklist")
+                ]
+            ),
+            Milestone(
+                id: 3,
+                title: "Content Calendar",
+                description: "Plan posts",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Content Planning Template", link: "https://example.com/content-template")
+                ]
+            ),
+            Milestone(
+                id: 4,
+                title: "Engage Audience",
+                description: "Build community",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Community Building Guide", link: "https://example.com/community-guide")
+                ]
+            ),
+            Milestone(
+                id: 5,
+                title: "Monetize",
+                description: "Generate revenue",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Monetization Strategies", link: "https://example.com/monetization")
+                ]
+            )
         ]
     ),
     Roadmap(
         title: "Software Engineer",
         milestones: [
-            Milestone(id: 1, title: "Learn Basics", description: "Programming fundamentals", isCompleted: true),
-            Milestone(id: 2, title: "Build Projects", description: "Portfolio development", isCompleted: false),
-            Milestone(id: 3, title: "Apply Jobs", description: "Job search", isCompleted: false),
-            Milestone(id: 4, title: "First Role", description: "Entry position", isCompleted: false),
-            Milestone(id: 5, title: "Senior Role", description: "Career growth", isCompleted: false)
+            Milestone(
+                id: 1,
+                title: "Learn Basics",
+                description: "Programming fundamentals",
+                isCompleted: true,
+                resources: [
+                    MilestoneResource(title: "Programming Fundamentals Course", link: "https://example.com/programming-basics")
+                ]
+            ),
+            Milestone(
+                id: 2,
+                title: "Build Projects",
+                description: "Portfolio development",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Project Ideas List", link: "https://example.com/project-ideas")
+                ]
+            ),
+            Milestone(
+                id: 3,
+                title: "Apply Jobs",
+                description: "Job search",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Job Search Strategy", link: "https://example.com/job-search")
+                ]
+            ),
+            Milestone(
+                id: 4,
+                title: "First Role",
+                description: "Entry position",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Entry-Level Job Guide", link: "https://example.com/entry-jobs")
+                ]
+            ),
+            Milestone(
+                id: 5,
+                title: "Senior Role",
+                description: "Career growth",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Senior Skills Development", link: "https://example.com/senior-skills")
+                ]
+            )
         ]
     ),
     Roadmap(
         title: "Entrepreneur",
         milestones: [
-            Milestone(id: 1, title: "Idea Validation", description: "Test concept", isCompleted: true),
-            Milestone(id: 2, title: "MVP", description: "Build prototype", isCompleted: true),
-            Milestone(id: 3, title: "Launch", description: "Go to market", isCompleted: true),
-            Milestone(id: 4, title: "Scale", description: "Grow business", isCompleted: false),
-            Milestone(id: 5, title: "Exit", description: "Acquisition/IPO", isCompleted: false)
+            Milestone(
+                id: 1,
+                title: "Idea Validation",
+                description: "Test concept",
+                isCompleted: true,
+                resources: [
+                    MilestoneResource(title: "Validation Framework", link: "https://example.com/validation-framework")
+                ]
+            ),
+            Milestone(
+                id: 2,
+                title: "MVP",
+                description: "Build prototype",
+                isCompleted: true,
+                resources: [
+                    MilestoneResource(title: "MVP Development Guide", link: "https://example.com/mvp-guide")
+                ]
+            ),
+            Milestone(
+                id: 3,
+                title: "Launch",
+                description: "Go to market",
+                isCompleted: true,
+                resources: [
+                    MilestoneResource(title: "Launch Strategy", link: "https://example.com/launch-strategy")
+                ]
+            ),
+            Milestone(
+                id: 4,
+                title: "Scale",
+                description: "Grow business",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Scaling Strategies", link: "https://example.com/scaling")
+                ]
+            ),
+            Milestone(
+                id: 5,
+                title: "Exit",
+                description: "Acquisition/IPO",
+                isCompleted: false,
+                resources: [
+                    MilestoneResource(title: "Exit Planning Guide", link: "https://example.com/exit-planning")
+                ]
+            )
         ]
     )
 ]
