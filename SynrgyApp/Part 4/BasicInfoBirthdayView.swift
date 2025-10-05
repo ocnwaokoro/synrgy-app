@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct BasicInfoBirthdayView: View {
     @ObservedObject var synrgyVM: SynrgyViewModel
     @State private var month: String = ""
@@ -15,8 +14,28 @@ struct BasicInfoBirthdayView: View {
     @State private var year: String = ""
     @Binding var selectedTab: Int
     
+    // Create date formatter once to avoid recreation
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        return formatter
+    }()
+    
     private var canContinue: Bool {
-        !month.isEmpty && !day.isEmpty && !year.isEmpty
+        guard !month.isEmpty && !day.isEmpty && !year.isEmpty else {
+            print("BasicInfoBirthdayView: Cannot continue - missing fields")
+            return false
+        }
+        
+        // Validate the date is actually valid
+        let dateString = "\(month)/\(day)/\(year)"
+        if let _ = dateFormatter.date(from: dateString) {
+            print("BasicInfoBirthdayView: Valid date entered: \(dateString)")
+            return true
+        } else {
+            print("BasicInfoBirthdayView: Invalid date: \(dateString)")
+            return false
+        }
     }
     
     var body: some View {
@@ -44,9 +63,10 @@ struct BasicInfoBirthdayView: View {
                 // Date inputs
                 HStack(spacing: 12) {
                     Menu {
-                        ForEach(0...11, id: \.self) { monthNum in
-                            Button(DateFormatter().monthSymbols[monthNum]) {
+                        ForEach(1...12, id: \.self) { monthNum in
+                            Button(DateFormatter().monthSymbols[monthNum - 1]) {
                                 month = String(format: "%02d", monthNum)
+                                print("BasicInfoBirthdayView: Selected month: \(month)")
                             }
                         }
                     } label: {
@@ -64,24 +84,33 @@ struct BasicInfoBirthdayView: View {
                     }
                     .frame(width: 140)
                     
-                    
                     TextField("DD", text: $day)
                         .keyboardType(.numberPad)
                         .textFieldStyle(SynrgyTextFieldStyle())
                         .frame(maxWidth: 80)
                         .onChange(of: day) { _, newValue in
-                            if newValue.count > 2 {
-                                day = String(newValue.prefix(2))
+                            // Only allow digits and limit to 2 characters
+                            let filtered = newValue.filter { $0.isNumber }
+                            if filtered.count > 2 {
+                                day = String(filtered.prefix(2))
+                            } else {
+                                day = filtered
                             }
+                            print("BasicInfoBirthdayView: Day changed to: \(day)")
                         }
                     
                     TextField("YYYY", text: $year)
                         .keyboardType(.numberPad)
                         .textFieldStyle(SynrgyTextFieldStyle())
                         .onChange(of: year) { _, newValue in
-                            if newValue.count > 4 {
-                                year = String(newValue.prefix(4))
+                            // Only allow digits and limit to 4 characters
+                            let filtered = newValue.filter { $0.isNumber }
+                            if filtered.count > 4 {
+                                year = String(filtered.prefix(4))
+                            } else {
+                                year = filtered
                             }
+                            print("BasicInfoBirthdayView: Year changed to: \(year)")
                         }
                     
                     Spacer()
@@ -92,6 +121,7 @@ struct BasicInfoBirthdayView: View {
                 // Navigation buttons
                 HStack {
                     Button(action: {
+                        print("BasicInfoBirthdayView: Back button tapped")
                         withAnimation {
                             selectedTab = 0
                         }
@@ -99,8 +129,8 @@ struct BasicInfoBirthdayView: View {
                         Text("Back")
                             .font(.headline)
                             .foregroundColor(.primary)
-                            .frame(maxWidth: .infinity)
                             .frame(height: 50)
+                            .frame(maxWidth: .infinity)
                             .background(Color.clear)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
@@ -109,11 +139,18 @@ struct BasicInfoBirthdayView: View {
                     }
                     
                     Button(action: {
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "MM/dd/yyyy"
-                        if let date = dateFormatter.date(from: "\(month)/\(day)/\(year)") {
+                        print("BasicInfoBirthdayView: Continue button tapped")
+                        let dateString = "\(month)/\(day)/\(year)"
+                        print("BasicInfoBirthdayView: Attempting to create date from: \(dateString)")
+                        
+                        if let date = dateFormatter.date(from: dateString) {
                             synrgyVM.userBirthday = date
+                            print("BasicInfoBirthdayView: Successfully set user birthday to: \(date)")
+                            synrgyVM.printSelections() // Debug log current state
+                        } else {
+                            print("BasicInfoBirthdayView: ERROR - Failed to create valid date from: \(dateString)")
                         }
+                        
                         withAnimation {
                             selectedTab = 2
                         }
@@ -121,8 +158,8 @@ struct BasicInfoBirthdayView: View {
                         Text("Continue")
                             .font(.headline)
                             .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
                             .frame(height: 50)
+                            .frame(maxWidth: .infinity)
                             .background(canContinue ? Color.primary : Color.gray.opacity(0.4))
                             .cornerRadius(12)
                     }
@@ -132,6 +169,9 @@ struct BasicInfoBirthdayView: View {
             .padding(.horizontal, 24)
         }
         .navigationBarHidden(true)
+        .onAppear {
+            print("BasicInfoBirthdayView: View appeared")
+        }
     }
 }
 
