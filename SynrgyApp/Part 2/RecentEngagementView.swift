@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RecentEngagementView: View {
     let roadmaps: [Roadmap]
+    let onRoadmapSelected: (Roadmap) -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -36,7 +37,13 @@ struct RecentEngagementView: View {
             
             // Roadmap items with dividers
             ForEach(Array(roadmaps.enumerated()), id: \.element.id) { index, roadmap in
-                RoadmapItemView(roadmap: roadmap)
+                RoadmapItemView(
+                    roadmap: roadmap,
+                    onTap: {
+                        print("RecentEngagementView: Tapped on roadmap: \(roadmap.title)")
+                        onRoadmapSelected(roadmap)
+                    }
+                )
                 
                 // Add divider after each item (except the last one)
                 if index < roadmaps.count - 1 {
@@ -50,6 +57,7 @@ struct RecentEngagementView: View {
 
 struct RoadmapItemView: View {
     let roadmap: Roadmap
+    let onTap: () -> Void
     private let iconSize: CGFloat = 24
 
     var body: some View {
@@ -67,6 +75,10 @@ struct RoadmapItemView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
+        .onTapGesture {
+            print("RoadmapItemView: Tapped on roadmap: \(roadmap.title)")
+            onTap()
+        }
     }
 }
 
@@ -85,73 +97,11 @@ extension Roadmap {
     }
 }
 
-// Sample roadmaps for career guidance
-private let sampleRoadmaps = [
-    Roadmap(
-        title: "Content Creator",
-        milestones: [
-            Milestone(id: 1, title: "Choose Niche", description: "Find your focus", isCompleted: true),
-            Milestone(id: 2, title: "Setup Platforms", description: "Create profiles", isCompleted: true),
-            Milestone(id: 3, title: "Content Calendar", description: "Plan posts", isCompleted: false),
-            Milestone(id: 4, title: "Engage Audience", description: "Build community", isCompleted: false),
-            Milestone(id: 5, title: "Monetize", description: "Generate revenue", isCompleted: false)
-        ]
-    ),
-    Roadmap(
-        title: "Software Engineer",
-        milestones: [
-            Milestone(id: 1, title: "Learn Basics", description: "Programming fundamentals", isCompleted: true),
-            Milestone(id: 2, title: "Build Projects", description: "Portfolio development", isCompleted: false),
-            Milestone(id: 3, title: "Apply Jobs", description: "Job search", isCompleted: false),
-            Milestone(id: 4, title: "First Role", description: "Entry position", isCompleted: false),
-            Milestone(id: 5, title: "Senior Role", description: "Career growth", isCompleted: false)
-        ]
-    ),
-    Roadmap(
-        title: "Entrepreneur",
-        milestones: [
-            Milestone(id: 1, title: "Idea Validation", description: "Test concept", isCompleted: true),
-            Milestone(id: 2, title: "MVP", description: "Build prototype", isCompleted: true),
-            Milestone(id: 3, title: "Launch", description: "Go to market", isCompleted: true),
-            Milestone(id: 4, title: "Scale", description: "Grow business", isCompleted: false),
-            Milestone(id: 5, title: "Exit", description: "Acquisition/IPO", isCompleted: false)
-        ]
-    )
-]
-
 #Preview {
-    RecentEngagementView(roadmaps: sampleRoadmaps)
-}
-
-let MyRoadmaps = [
-    Roadmap(
-        title: "Content Creator",
-        milestones: [
-            Milestone(id: 1, title: "Choose Niche", description: "Find your focus", isCompleted: true),
-            Milestone(id: 2, title: "Setup Platforms", description: "Create profiles", isCompleted: true),
-            Milestone(id: 3, title: "Content Calendar", description: "Plan posts", isCompleted: false),
-            Milestone(id: 4, title: "Engage Audience", description: "Build community", isCompleted: false),
-            Milestone(id: 5, title: "Monetize", description: "Generate revenue", isCompleted: false)
-        ]
-    ),
-    Roadmap(
-        title: "Software Engineer",
-        milestones: [
-            Milestone(id: 1, title: "Learn Basics", description: "Programming fundamentals", isCompleted: true),
-            Milestone(id: 2, title: "Build Projects", description: "Portfolio development", isCompleted: false),
-            Milestone(id: 3, title: "Apply Jobs", description: "Job search", isCompleted: false),
-            Milestone(id: 4, title: "First Role", description: "Entry position", isCompleted: false),
-            Milestone(id: 5, title: "Senior Role", description: "Career growth", isCompleted: false)
-        ]
-    ),
-    Roadmap(
-        title: "Entrepreneur",
-        milestones: [
-            Milestone(id: 1, title: "Idea Validation", description: "Test concept", isCompleted: true),
-            Milestone(id: 2, title: "MVP", description: "Build prototype", isCompleted: true),
-            Milestone(id: 3, title: "Launch", description: "Go to market", isCompleted: true),
-            Milestone(id: 4, title: "Scale", description: "Grow business", isCompleted: false),
-            Milestone(id: 5, title: "Exit", description: "Acquisition/IPO", isCompleted: false)
-        ]
+    RecentEngagementView(
+        roadmaps: UnifiedRoadmapData.shared.sharedRoadmaps,
+        onRoadmapSelected: { roadmap in
+            print("Preview: Selected roadmap: \(roadmap.title)")
+        }
     )
-]
+}
