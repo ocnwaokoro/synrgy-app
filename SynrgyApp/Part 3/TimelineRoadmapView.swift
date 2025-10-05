@@ -9,66 +9,85 @@
 import Foundation
 import SwiftUI
 
+// MARK: - MilestoneResource
+public struct MilestoneResource: Identifiable, Codable, Equatable, Hashable {
+    public let id: UUID
+    public let title: String
+    public let link: String
+    
+    public init(title: String, link: String) {
+        self.id = UUID()
+        self.title = title
+        self.link = link
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
+// MARK: - Milestone
+public struct Milestone: Identifiable, Codable, Equatable, Hashable {
+    public let id: Int
+    public let title: String
+    public let description: String
+    public var isCompleted: Bool
+    public let resources: [MilestoneResource]
+
+    public init(
+        id: Int, title: String, description: String, isCompleted: Bool = false,
+        resources: [MilestoneResource] = []
+    ) {
+        self.id = id
+        self.title = title
+        self.description = description
+        self.isCompleted = isCompleted
+        self.resources = resources
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
 // MARK: - Main View
 struct TimelineRoadmapView: View {
-    @State private var milestones: [Milestone]
+    let roadmap: Roadmap
     @Binding var isLoading: Bool
     @Environment(\.dismiss) private var dismiss
+    let onBack: () -> Void
+    @State private var showMessages = true  // Added back the messages sheet state
+    @State private var currentDetent: PresentationDetent = .fraction(0.4)  // Added detent state
 
     private let titleTopPadding: CGFloat = 24
     private let milestoneSpacing: CGFloat = 40
     private let betweenTitleDesc: CGFloat = 0
     private let horizontalPadding: CGFloat = 16
     private let markerSize: CGFloat = 28 + 8
+    private let base: CGFloat = 199  // Added base height for messages
 
     init(
-        milestones: [Milestone]? = nil,
-        isLoading: Binding<Bool> = .constant(false)
+        roadmap: Roadmap,
+        isLoading: Binding<Bool> = .constant(false),
+        onBack: @escaping () -> Void = {}
     ) {
-        if let milestones = milestones {
-            self._milestones = State(initialValue: milestones)
-        } else {
-            self._milestones = State(initialValue: [
-                .init(
-                    id: 1, title: "Choose Your Niche",
-                    description:
-                        "Identify your unique voice and establish expertise in a targeted subject area",
-                    isCompleted: true,
-                    resources: ["YouTube", "TikTok", "Blog", "Course"]),
-                .init(
-                    id: 2, title: "Setup Platforms",
-                    description: "Create branded profiles on 1-2 channels",
-                    isCompleted: true,
-                    resources: ["Instagram", "Twitter", "LinkedIn"]),
-                .init(
-                    id: 3, title: "Content Calendar",
-                    description: "Produce 2-3 posts per week with batches",
-                    isCompleted: false,
-                    resources: ["Notion", "Canva", "Buffer", "Hootsuite"]),
-                .init(
-                    id: 4, title: "Engage Audience",
-                    description: "Use SEO, cross-promote, and reply daily",
-                    isCompleted: false,
-                    resources: ["Google Analytics", "SEMrush", "BuzzSumo"]),
-                .init(
-                    id: 5, title: "Monetize Growth",
-                    description: "Test revenue streams and reinvest for growth",
-                    isCompleted: false,
-                    resources: ["Stripe", "PayPal", "Patreon", "Gumroad"]),
-            ])
-        }
+        self.roadmap = roadmap
         self._isLoading = isLoading
+        self.onBack = onBack
     }
 
     var body: some View {
         VStack(spacing: 0) {
             NavigationHeader(
-                onBack: { dismiss() },
+                onBack: {
+                    print("TimelineRoadmapView: Back button tapped")
+                    onBack()
+                },
                 onDone: {
                     // Handle done action
-                    print("Done button tapped")
-                    dismiss()
-                }
+                    print("TimelineRoadmapView: Done button tapped")
+                    onBack()
+                }, title: roadmap.title
             )
 
             ZStack(alignment: .top) {
@@ -80,17 +99,18 @@ struct TimelineRoadmapView: View {
                         //                        TimelineTitle(topPadding: titleTopPadding)
 
                         VStack(alignment: .leading, spacing: milestoneSpacing) {
-                            ForEach(milestones.indices, id: \.self) { index in
+                            ForEach(roadmap.milestones.indices, id: \.self) { index in
                                 MilestoneRow(
-                                    milestone: milestones[index],
+                                    milestone: roadmap.milestones[index],
                                     index: index,
-                                    totalCount: milestones.count,
+                                    totalCount: roadmap.milestones.count,
                                     milestoneSpacing: milestoneSpacing,
                                     horizontalPadding: horizontalPadding,
                                     markerSize: markerSize,
                                     betweenTitleDesc: betweenTitleDesc
                                 ) {
-                                    milestones[index].isCompleted.toggle()
+                                    // TODO: Update milestone completion in UnifiedRoadmapData
+                                    print("TimelineRoadmapView: Toggled milestone \(roadmap.milestones[index].id) completion")
                                 }
                             }
                         }
@@ -105,15 +125,21 @@ struct TimelineRoadmapView: View {
                     .frame(maxWidth: 500)
                 }
             }
+            .sheet(isPresented: $showMessages) {
+                MessagesView()
+                    .presentationDetents([.height(base), .height(base+1)], selection: $currentDetent)
+                    .presentationBackgroundInteraction(.enabled(upThrough: .height(200)))
+                    .presentationDragIndicator(.visible)
+                    .interactiveDismissDisabled(true)
+            }
         }
     }
 }
-
 // MARK: - Navigation Header
 private struct NavigationHeader: View {
     let onBack: () -> Void
     let onDone: () -> Void
-
+    let title: String
     var body: some View {
         HStack {
             // Back Button
@@ -126,11 +152,11 @@ private struct NavigationHeader: View {
                 }
                 .foregroundColor(.black)
             }
-
+            
             Spacer()
 
             // Center Title
-            Text("Career Roadmap")
+            Text(title)
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(.black)
 
@@ -224,7 +250,7 @@ struct MilestoneRow: View {
 }
 
 struct TimelineColumn: View {
-    let milestone: Milestone
+    @State var milestone: Milestone
     let index: Int
     let totalCount: Int
     let milestoneSpacing: CGFloat
@@ -247,7 +273,7 @@ struct TimelineColumn: View {
             VStack {
                 HStack(spacing: 8) {
                     CheckboxView(
-                        isCompleted: milestone.isCompleted,
+                        isCompleted: $milestone.isCompleted,
                         onTap: onToggle
                     )
 
@@ -287,11 +313,11 @@ struct MilestoneContent: View {
 
 // MARK: - Interactive Components
 struct CheckboxView: View {
-    let isCompleted: Bool
+    @Binding var isCompleted: Bool
     let onTap: () -> Void
 
     var body: some View {
-        Button(action: onTap) {
+        Button(action: {onTap(); isCompleted.toggle()}) {
             ZStack {
                 RoundedRectangle(cornerRadius: 4)
                     .stroke(Color.black, lineWidth: 2)
@@ -337,21 +363,28 @@ struct TimelineMarker: View {
 
 // MARK: - Resource Components
 struct ResourceTags: View {
-    let resources: [String]
+    let resources: [MilestoneResource]
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 6) {
-                ForEach(resources, id: \.self) { resource in
-                    Text(resource)
-                        .font(.system(size: 11, weight: .medium))
-                        .foregroundColor(.black)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(Color.gray.opacity(0.25))
-                        .cornerRadius(6)
-                        .lineLimit(1)
-                        .fixedSize(horizontal: true, vertical: false)
+                ForEach(resources, id: \.id) { resource in
+                    Button(action: {
+                        if let url = URL(string: resource.link) {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
+                        Text(resource.title)
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundColor(.black)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(Color.gray.opacity(0.25))
+                            .cornerRadius(6)
+                            .lineLimit(1)
+                            .fixedSize(horizontal: true, vertical: false)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
             .padding(.horizontal, 2)
@@ -376,25 +409,11 @@ struct LogoCircle: View {
 // MARK: - Preview
 struct TimelineRoadmapView_Previews: PreviewProvider {
     static var previews: some View {
-        TimelineRoadmapView()
-    }
-}
-
-public struct Milestone: Identifiable, Codable, Equatable {
-    public let id: Int
-    public let title: String
-    public let description: String
-    public var isCompleted: Bool
-    public let resources: [String]
-
-    public init(
-        id: Int, title: String, description: String, isCompleted: Bool = false,
-        resources: [String] = []
-    ) {
-        self.id = id
-        self.title = title
-        self.description = description
-        self.isCompleted = isCompleted
-        self.resources = resources
+        TimelineRoadmapView(
+            roadmap: UnifiedRoadmapData.shared.sharedRoadmaps[0],
+            onBack: {
+                print("Preview: Back button tapped")
+            }
+        )
     }
 }
